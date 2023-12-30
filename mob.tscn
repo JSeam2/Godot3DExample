@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1kw2teh84ubx"]
+
+[ext_resource type="Script" path="res://mob.gd" id="1_tjay3"]
+[ext_resource type="PackedScene" uid="uid://bkw10ukthpq3b" path="res://art/mob.glb" id="2_gjkwo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q5522"]
+size = Vector3(2.00508, 1.23482, 2.41676)
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297234, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_tjay3")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("2_gjkwo")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.413977, 0)
+shape = SubResource("BoxShape3D_q5522")
+
+[node name="LifespanTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="LifespanTimer" to="." method="_on_lifespan_timer_timeout"]
